@@ -1,3 +1,14 @@
+import torch
+
+PROFILE = False
+NUM_PRERUN = 2
+NUM_ITERATIONS = 1000
+
+TOLERANCE_MAP = {  # Tolerance map for different data types
+        torch.float16: {"atol": 1e-3, "rtol": 1e-3},
+        torch.float32: {"atol": 1e-7, "rtol": 1e-7},
+}
+
 def get_args():
     import argparse
 
