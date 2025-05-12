@@ -21,7 +21,7 @@ infiniopStatus_t cpuCreateAddDescriptor(infiniopHandle_t,
                                         infiniopTensorDescriptor_t a,
                                         infiniopTensorDescriptor_t b) {
     uint64_t ndim = c->ndim;
-    if (!isValidBroadcastShape(a, b, c)) {
+    if (!isValidBroadcastShape(a, b, c)) { 
         return STATUS_BAD_TENSOR_SHAPE;
     }
     if (!is_contiguous(a) || !is_contiguous(b) || !is_contiguous(c)) {
