@@ -164,40 +164,7 @@ def test(lib,
     # ------------------------------------------------------------------------------ #
     #                              先对比精度                                          #
     # ------------------------------------------------------------------------------ #
-    check_error(lib.infiniopAttention(descriptor,
-                                      workspace.data_ptr() if workspace is not None else None,
-                                      workspace_size.value,
-                                      out_tensor.data,
-                                      q_tensor.data,
-                                      k_tensor.data,
-                                      v_tensor.data,
-                                      k_cache_tensor.data,
-                                      v_cache_tensor.data,
-                                      None))
-
-    torch.cuda.synchronize()
-
-    assert torch.allclose(out, ans, atol=TOLERANCE_MAP[dtype]["atol"], rtol=TOLERANCE_MAP[dtype]["rtol"])
-
-    # ------------------------------------------------------------------------------ #
-    #                              计算pytorch算子                                     #
-    # ------------------------------------------------------------------------------ #
-    for i in range(NUM_PRERUN if PROFILE else 1):
-        _ = attention(q, k, v, k_cache, v_cache, pos)
-
-    if PROFILE:
-        start_time = time.time()
-        for i in range(NUM_ITERATIONS):
-            # print(i)
-            _ = attention(q, k, v, k_cache, v_cache, pos)
-
-        elapsed = 1000 * (time.time() - start_time) / NUM_ITERATIONS
-        print(f"pytorch time : {elapsed :6f}  ms")
-
-    # ------------------------------------------------------------------------------ #
-    #                              计算infiniop算子                                    #
-    # ------------------------------------------------------------------------------ #
-    for i in range(NUM_PRERUN if PROFILE else 1):
+    def lib_attention():
         check_error(lib.infiniopAttention(descriptor,
                                           workspace.data_ptr() if workspace is not None else None,
                                           workspace_size.value,
@@ -209,23 +176,68 @@ def test(lib,
                                           v_cache_tensor.data,
                                           None))
 
-    if PROFILE:  # 应该得cuda同步才型把，记录event的时间
-        start_time = time.time()
-        for i in range(NUM_ITERATIONS):
-            check_error(lib.infiniopAttention(descriptor,
-                                              workspace.data_ptr() if workspace is not None else None,
-                                              workspace_size.value,
-                                              out_tensor.data,
-                                              q_tensor.data,
-                                              k_tensor.data,
-                                              v_tensor.data,
-                                              k_cache_tensor.data,
-                                              v_cache_tensor.data,
-                                              None))
-        torch.cuda.synchronize()
 
-        elapsed = 1000 * (time.time() - start_time) / NUM_ITERATIONS
-        print(f"    lib time: {elapsed :6f} ms")
+    lib_attention()
+    torch.cuda.synchronize()
+
+    assert torch.allclose(out, ans, atol=TOLERANCE_MAP[dtype]["atol"], rtol=TOLERANCE_MAP[dtype]["rtol"])
+    # ------------------------------------------------------------------------------ #
+    #                              计算pytorch算子                                     #
+    # ------------------------------------------------------------------------------ #
+    if PROFILE:
+        # fmt: off
+        from infiniop.libinfiniop.utils import profile_operation
+        profile_operation("PyTorch", lambda: attention(q, k, v, k_cache, v_cache, pos), torch_device, NUM_PRERUN, NUM_ITERATIONS)
+        profile_operation("    lib", lambda: lib_attention(), torch_device, NUM_PRERUN, NUM_ITERATIONS)
+        # fmt: on
+
+    # ------------------------------------------------------------------------------ #
+    #                              计算pytorch算子                                     #
+    # ------------------------------------------------------------------------------ #
+    # for i in range(NUM_PRERUN if PROFILE else 1):
+    #     _ = attention(q, k, v, k_cache, v_cache, pos)
+    #
+    # if PROFILE:
+    #     start_time = time.time()
+    #     for i in range(NUM_ITERATIONS):
+    #         # print(i)
+    #         _ = attention(q, k, v, k_cache, v_cache, pos)
+    #
+    #     elapsed = 1000 * (time.time() - start_time) / NUM_ITERATIONS
+    #     print(f"pytorch time : {elapsed :6f}  ms")
+
+    # ------------------------------------------------------------------------------ #
+    #                              计算infiniop算子                                    #
+    # ------------------------------------------------------------------------------ #
+    # for i in range(NUM_PRERUN if PROFILE else 1):
+    #     check_error(lib.infiniopAttention(descriptor,
+    #                                       workspace.data_ptr() if workspace is not None else None,
+    #                                       workspace_size.value,
+    #                                       out_tensor.data,
+    #                                       q_tensor.data,
+    #                                       k_tensor.data,
+    #                                       v_tensor.data,
+    #                                       k_cache_tensor.data,
+    #                                       v_cache_tensor.data,
+    #                                       None))
+    #
+    # if PROFILE:  # 应该得cuda同步才型把，记录event的时间
+    #     start_time = time.time()
+    #     for i in range(NUM_ITERATIONS):
+    #         check_error(lib.infiniopAttention(descriptor,
+    #                                           workspace.data_ptr() if workspace is not None else None,
+    #                                           workspace_size.value,
+    #                                           out_tensor.data,
+    #                                           q_tensor.data,
+    #                                           k_tensor.data,
+    #                                           v_tensor.data,
+    #                                           k_cache_tensor.data,
+    #                                           v_cache_tensor.data,
+    #                                           None))
+    #     torch.cuda.synchronize()
+    #
+    #     elapsed = 1000 * (time.time() - start_time) / NUM_ITERATIONS
+    #     print(f"    lib time: {elapsed :6f} ms")
 
     # ------------------------------------------------------------------------------ #
     #                                 释放资源                                         #

@@ -71,8 +71,6 @@ def test(
     a_tensor = to_tensor(a, lib)
     b_tensor = to_tensor(b, lib)
     c_tensor = to_tensor(c, lib) if inplace == Inplace.OUT_OF_PLACE else (a_tensor if inplace == Inplace.INPLACE_A else b_tensor)
-   
-
 
     # ------------------------------------------------------------------------------ #
     #                              准备infiniop算子                                    #
@@ -95,37 +93,49 @@ def test(
     # ------------------------------------------------------------------------------ #
     #                              先对比精度                                          #
     # ------------------------------------------------------------------------------ #
-    check_error(lib.infiniopAdd(descriptor, c_tensor.data, a_tensor.data, b_tensor.data, None))
+    def lib_add():
+        check_error(lib.infiniopAdd(descriptor, c_tensor.data, a_tensor.data, b_tensor.data, None))
+
+    lib_add()
     torch.cuda.synchronize()
     assert torch.allclose(c, ans, atol=  TOLERANCE_MAP[tensor_dtype]["atol"], rtol=  TOLERANCE_MAP[tensor_dtype]["rtol"])
-
+    # ------------------------------------------------------------------------------ #
+    #                              计算pytorch算子                                     #
+    # ------------------------------------------------------------------------------ #
+    # Profiling workflow
+    if PROFILE:
+        # fmt: off
+        from infiniop.libinfiniop.utils import profile_operation
+        profile_operation("PyTorch", lambda: add(a, b), torch_device, NUM_PRERUN, NUM_ITERATIONS)
+        profile_operation("    lib", lambda: lib_add(), torch_device, NUM_PRERUN, NUM_ITERATIONS)
+        # fmt: on
 
     # ------------------------------------------------------------------------------ #
     #                              计算pytorch算子                                     #
     # ------------------------------------------------------------------------------ #
-    for i in range(NUM_PRERUN if PROFILE else 1):
-        ans = add(a, b)
-    # operatorspy/tests/add_PROFILE_ITERATIONS.py
-    if PROFILE:
-        start_time = time.time()
-        for i in range(NUM_ITERATIONS):
-            _ = add(a, b)
-        elapsed = 1000*(time.time() - start_time) / NUM_ITERATIONS
-        print(f"pytorch time : {elapsed :6f}  ms")
+    # for i in range(NUM_PRERUN if PROFILE else 1):
+    #     ans = add(a, b)
+    # # operatorspy/tests/add_PROFILE_ITERATIONS.py
+    # if PROFILE:
+    #     start_time = time.time()
+    #     for i in range(NUM_ITERATIONS):
+    #         _ = add(a, b)
+    #     elapsed = 1000*(time.time() - start_time) / NUM_ITERATIONS
+    #     print(f"pytorch time : {elapsed :6f}  ms")
 
     # ------------------------------------------------------------------------------ #
     #                              计算infiniop算子                                    #
     # ------------------------------------------------------------------------------ #
-    for i in range(NUM_PRERUN if PROFILE else 1):
-        check_error(lib.infiniopAdd(descriptor, c_tensor.data, a_tensor.data, b_tensor.data, None))
-
-    if PROFILE:  # 应该得cuda同步才型把，记录event的时间
-            start_time = time.time()
-            for i in range(NUM_ITERATIONS):
-                check_error(   lib.infiniopAdd(descriptor, c_tensor.data, a_tensor.data, b_tensor.data, None) )
-           
-            elapsed = 1000*(time.time() - start_time) / NUM_ITERATIONS
-            print(f"    lib time: {elapsed :6f} ms")
+    # for i in range(NUM_PRERUN if PROFILE else 1):
+    #     check_error(lib.infiniopAdd(descriptor, c_tensor.data, a_tensor.data, b_tensor.data, None))
+    #
+    # if PROFILE:  # 应该得cuda同步才型把，记录event的时间
+    #         start_time = time.time()
+    #         for i in range(NUM_ITERATIONS):
+    #             check_error(   lib.infiniopAdd(descriptor, c_tensor.data, a_tensor.data, b_tensor.data, None) )
+    #
+    #         elapsed = 1000*(time.time() - start_time) / NUM_ITERATIONS
+    #         print(f"    lib time: {elapsed :6f} ms")
 
     # ------------------------------------------------------------------------------ #
     #                                 释放资源                                         #

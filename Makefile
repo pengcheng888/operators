@@ -17,18 +17,22 @@ build:
 	@echo "------------------- xmake build && xmake install  --------------------"
 	@xmake build && xmake install
 
+	@echo "------------------- make build over  --------------------"
+
 
 # @make build && cd $(workdir) && ./$(name)
 run:
-	# @echo "\n\n\n ------------------- python add_PROFILE_ITERATIONS.py --cuda --profile  -------------------- \n"
-	# @cd operatorspy/tests/ && /home/ubuntu/miniconda3/envs/py310torch260/bin/python add_PROFILE_ITERATIONS.py --cuda --profile
+	@make build
+	@echo "\n\n\n ------------------- python add_PROFILE_ITERATIONS.py --cuda --profile  -------------------- \n"
+	@cd operatorspy/tests/ && /home/ubuntu/miniconda3/envs/py310torch260/bin/python add_PROFILE_ITERATIONS.py --cuda --profile
 
-	# @echo "\n\n\n ------------------- python attention_PROFILE_ITERATIONS.py --cuda --profile  -------------------- \n"
-	# @cd operatorspy/tests/ && /home/ubuntu/miniconda3/envs/py310torch260/bin/python attention_PROFILE_ITERATIONS.py --cuda --profile
-	
+	@echo "\n\n\n ------------------- python attention_PROFILE_ITERATIONS.py --cuda --profile  -------------------- \n"
+	@cd operatorspy/tests/ && /home/ubuntu/miniconda3/envs/py310torch260/bin/python attention_PROFILE_ITERATIONS.py --cuda --profile
+
 	@echo "\n\n\n ------------------- python swiglu_PROFILE_ITERATIONS.py --cuda --profile  -------------------- \n"
 	@cd operatorspy/tests/ && /home/ubuntu/miniconda3/envs/py310torch260/bin/python swiglu_PROFILE_ITERATIONS.py --cuda --profile
-	
+
+
 
 # 定义清理指令
 clean:
