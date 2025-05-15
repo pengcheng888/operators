@@ -24,6 +24,7 @@ option("nv-gpu")
     set_showmenu(true)
     set_description("Enable or disable Nvidia GPU kernel")
     add_defines("ENABLE_NV_GPU")
+    
 option_end()
 
 option("cambricon-mlu")
@@ -127,6 +128,9 @@ if has_config("nv-gpu", "sugon-dcu") then
         set_languages("cxx17")
         add_files("src/devices/cuda/*.cc", "src/ops/*/cuda/*.cu")
         add_files("src/ops/*/cuda/*.cc")
+
+
+      
     target_end()
 
 end

@@ -431,7 +431,7 @@ def profile_operation(desc, func, torch_device, NUM_PRERUN, NUM_ITERATIONS):
 
     # Timed execution
     elapsed = timed_op(lambda: func(), NUM_ITERATIONS, torch_device)
-    print(f" {desc} time: {elapsed * 1000 :6f} ms")
+    print(f"{desc} time: {elapsed * 1000 :6f} ms")
 
 
 def test_operator(lib, device, test_func, test_cases, tensor_dtypes):

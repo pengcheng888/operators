@@ -2,7 +2,7 @@ import torch
 
 PROFILE = False
 NUM_PRERUN = 2
-NUM_ITERATIONS = 1000
+NUM_ITERATIONS = 100
 
 TOLERANCE_MAP = {  # Tolerance map for different data types
         torch.float16: {"atol": 1e-3, "rtol": 1e-3},
