@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d2555710-eebf-43c7-a106-9bd173dd457c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/operatorspy/tests/infiniop/libinfiniop/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/operatorspy/tests/infiniop/libinfiniop/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/operatorspy/tests/test_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/operatorspy/tests/test_utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xmake.lua" beforeDir="false" afterPath="$PROJECT_DIR$/xmake.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/operatorspy/tests/add_PROFILE_ITERATIONS_v2.py" beforeDir="false" afterPath="$PROJECT_DIR$/operatorspy/tests/add_PROFILE_ITERATIONS_v2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/operatorspy/tests/attention_PROFILE_ITERATIONS_v2.py" beforeDir="false" afterPath="$PROJECT_DIR$/operatorspy/tests/attention_PROFILE_ITERATIONS_v2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/operatorspy/tests/swiglu_PROFILE_ITERATIONS_v2.py" beforeDir="false" afterPath="$PROJECT_DIR$/operatorspy/tests/swiglu_PROFILE_ITERATIONS_v2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,15 +37,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;PROFILE__ITERATIONS&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/ubuntu/workspace_aisys/operators&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "PROFILE__ITERATIONS",
+    "last_opened_file_path": "/home/ubuntu/workspace_aisys/InfiniCore/InfiniCore-Test-op/InfiniCore/test/infiniop",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="swiglu_PROFILE_ITERATIONS" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="operators" />

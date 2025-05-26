@@ -338,7 +338,7 @@ toolchain("sugon-dcu-linker")
     set_toolset("sh", "nvcc")
 toolchain_end()
 
-target("infiniop")
+target("libinfiniop_operators")
     set_kind("shared")
 
     if has_config("cpu") then

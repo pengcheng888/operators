@@ -102,7 +102,7 @@ def test(lib,
     torch.cuda.synchronize()
     c = c if inplace == Inplace.OUT_OF_PLACE else (a if inplace == Inplace.INPLACE_A else b)
 
-    # assert torch.allclose(c, ans, atol=TOLERANCE_MAP[dtype]["atol"], rtol=TOLERANCE_MAP[dtype]["rtol"])
+    #assert torch.allclose(c, ans, atol=TOLERANCE_MAP[dtype]["atol"], rtol=TOLERANCE_MAP[dtype]["rtol"])
     print("out-of-place Test passed!")
     # ------------------------------------------------------------------------------ #
     #                              计算pytorch算子                                     #
@@ -243,13 +243,14 @@ if __name__ == "__main__":
 
     test_cases = [
         # shape, a_stride, b_stride, c_stride, dtype
-        ((1e2, 10), (10, 1), (10, 1), (10, 1), torch.float16, Inplace.OUT_OF_PLACE),
-        ((1e3, 10), (10, 1), (10, 1), (10, 1), torch.float16, Inplace.OUT_OF_PLACE),
-        ((1e4, 10), (10, 1), (10, 1), (10, 1), torch.float16, Inplace.OUT_OF_PLACE),
-        ((1e5, 10), (10, 1), (10, 1), (10, 1), torch.float16, Inplace.OUT_OF_PLACE),
-        ((1e6, 10), (10, 1), (10, 1), (10, 1), torch.float16, Inplace.OUT_OF_PLACE),
-        ((1e7, 10), (10, 1), (10, 1), (10, 1), torch.float16, Inplace.OUT_OF_PLACE),
+        ((1e2, 10), (10, 1), (10, 1), (10, 1), torch.float32, Inplace.OUT_OF_PLACE),
+        ((1e3, 10), None, None, None, torch.float32, Inplace.OUT_OF_PLACE),
+        ((1e4, 10), None, None, None, torch.float32, Inplace.OUT_OF_PLACE),
+        ((1e5, 10), None, None, None, torch.float32, Inplace.OUT_OF_PLACE),
+        ((1e6, 10), None, None, None, torch.float32, Inplace.OUT_OF_PLACE),
+        ((1e7, 10),None, None, None, torch.float32, Inplace.OUT_OF_PLACE),
     ]
+    
     args = get_args()  # swiglu_PROFILE_ITERATIONS
     lib = open_lib()
 

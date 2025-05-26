@@ -22,18 +22,16 @@ build:
 
 # @make build && cd $(workdir) && ./$(name)
 run:
-# 	@make build
-	@echo "\n\n\n ------------------- python add_PROFILE_ITERATIONS_v2.py --cuda --profile  -------------------- \n"
-	@cd operatorspy/tests/ && /home/ubuntu/miniconda3/envs/py310torch260/bin/python add_PROFILE_ITERATIONS_v2.py --cuda --profile
+
+	# @echo "\n\n\n ------------------- python add_PROFILE_ITERATIONS_v2.py --cuda --profile  -------------------- \n"
+	# @cd operatorspy/tests/ && /home/ubuntu/miniconda3/envs/py310torch260/bin/python add_PROFILE_ITERATIONS_v2.py --cuda --profile
+
+	# @echo "\n\n\n ------------------- python swiglu_PROFILE_ITERATIONS_v2.py --cuda --profile  -------------------- \n"
+	# @cd operatorspy/tests/ && /home/ubuntu/miniconda3/envs/py310torch260/bin/python swiglu_PROFILE_ITERATIONS_v2.py --cuda --profile
 
 
-
-# 	@echo "\n\n\n ------------------- python swiglu_PROFILE_ITERATIONS_v2.py --cuda --profile  -------------------- \n"
-# 	@cd operatorspy/tests/ && /home/ubuntu/miniconda3/envs/py310torch260/bin/python swiglu_PROFILE_ITERATIONS_v2.py --cuda --profile
-
-
-# 	@echo "\n\n\n ------------------- python attention_PROFILE_ITERATIONS_v2.py --cuda --profile  -------------------- \n"
-# 	@cd operatorspy/tests/ && /home/ubuntu/miniconda3/envs/py310torch260/bin/python attention_PROFILE_ITERATIONS_v2.py --cuda --profile
+	@echo "\n\n\n ------------------- python attention_PROFILE_ITERATIONS_v2.py --cuda --profile  -------------------- \n"
+	@cd operatorspy/tests/ && /home/ubuntu/miniconda3/envs/py310torch260/bin/python attention_PROFILE_ITERATIONS_v2.py --cuda --profile
 
 
 
