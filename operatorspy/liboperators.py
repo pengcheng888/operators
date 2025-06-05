@@ -55,13 +55,13 @@ def open_lib():
     system_name = platform.system()
     # Load the library
     if system_name == "Windows":
-        library_path = find_library_in_ld_path("infiniop.dll")
+        library_path = find_library_in_ld_path("libinfiniop_operators.dll")
     elif system_name == "Linux":
-        library_path = find_library_in_ld_path("libinfiniop.so")
+        library_path = find_library_in_ld_path("libinfiniop_operators.so")
 
     assert (
         library_path is not None
-    ), f"Cannot find infiniop.dll or libinfiniop.so. Check if INFINI_ROOT is set correctly."
+    ), f"Cannot find infiniop.dll or libinfiniop_operators.so. Check if INFINI_ROOT is set correctly."
     lib = ctypes.CDLL(library_path)
     lib.infiniopCreateTensorDescriptor.argtypes = [
         POINTER(infiniopTensorDescriptor_t),

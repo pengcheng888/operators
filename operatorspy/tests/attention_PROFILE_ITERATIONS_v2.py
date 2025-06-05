@@ -423,7 +423,7 @@ if __name__ == "__main__":
         # prefill
         (
             32,  # n_q_head
-            4,  # n_kv_head
+            32,  # n_kv_head
             1,  # seq_len
             64,  # head_dim
             0,  # pos
@@ -439,7 +439,7 @@ if __name__ == "__main__":
         # decode
         (
             32,  # n_q_head
-            4,  # n_kv_head
+            32,  # n_kv_head
             10,  # seq_len
             64,  # head_dim
             0,  # pos
@@ -455,7 +455,7 @@ if __name__ == "__main__":
         # for test
         (
             32,  # n_q_head
-            4,  # n_kv_head
+            32,  # n_kv_head
             100,  # seq_len
             64,  # head_dim
             0,  # pos
@@ -471,7 +471,7 @@ if __name__ == "__main__":
         # for test
         (
             32,  # n_q_head
-            4,  # n_kv_head
+            32,  # n_kv_head
             500,  # seq_len
             64,  # head_dim
             0,  # pos
@@ -486,7 +486,7 @@ if __name__ == "__main__":
         ),
         (
             32,  # n_q_head
-            4,  # n_kv_head
+            32,  # n_kv_head
             1000,  # seq_len
             64,  # head_dim
             0,  # pos
@@ -501,7 +501,7 @@ if __name__ == "__main__":
         ),
         (
             32,  # n_q_head
-            4,  # n_kv_head
+            32,  # n_kv_head
             2000,  # seq_len
             64,  # head_dim
             0,  # pos
